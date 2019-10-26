@@ -1,47 +1,247 @@
 <html>
-<head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-</head>
+<style>
+    button {
+        background-color: #a3e4d7;
+        color: white;
+        padding: 14px 20px;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+    }
+
+    #div1 {
+        font-size: 48px;
+    }
+
+    .myButton {
+        background-color: #44c767;
+        -moz-border-radius: 28px;
+        -webkit-border-radius: 28px;
+        border-radius: 28px;
+        border: 1px solid #18ab29;
+        display: inline-block;
+        cursor: pointer;
+        color: #ffffff;
+        font-family: Arial;
+        font-size: 17px;
+        padding: 16px 31px;
+        text-decoration: none;
+        text-shadow: 0px 1px 0px #2f6627;
+    }
+
+    .myButton:hover {
+        background-color: #5cbf2a;
+    }
+
+    .myButton:active {
+        position: relative;
+        top: 1px;
+    }
+
+    .floatLeft {
+        width: 50%;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+    }
+
+    .floatRight {
+        width: 30%;
+        float: right;
+    }
+
+    .container {
+        overflow: hidden;
+    }
+
+    .vid {
+        float: left;
+    }
+
+    body {
+        background-image: url("shab.jpg");
+
+
+    }
+
+    h2 {
+        color: #010101;
+        text-align: center;
+
+    }
+
+    h3 {
+        color: #010101;
+        text-align: left;
+
+    }
+
+    div {
+        align-items: center;
+    }
+
+    td {
+        align-items: center;
+        margin-left: 15%;
+    }
+
+    th {
+        color: blue;
+        text-align: center;
+    }
+
+    table {
+        height: 30px;
+    }
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <body>
+    <div class="headi">
+        <h2>Raspberry Pi Web Robot Control</h2>
+    </div>
+    <div id="div1" class="fa"></div>
+    <script>
+        function chargebattery() {
+            var a;
+            a = document.getElementById("div1");
+            a.innerHTML = "&#xf244;";
+            setTimeout(function () {
+                a.innerHTML = "&#xf243;";
+            }, 1000);
+            setTimeout(function () {
+                a.innerHTML = "&#xf242;";
+            }, 2000);
+            setTimeout(function () {
+                a.innerHTML = "&#xf241;";
+            }, 3000);
+            setTimeout(function () {
+                a.innerHTML = "&#xf240;";
+            }, 4000);
+        }
 
-<!--<img src="http://192.168.43.220:8081" /> <!--Enter the IP Address of your Raspberry Pi-->
-<!--<div style="float:right">-->
+        chargebattery();
+        setInterval(chargebattery, 5000);
+    </script>
+    <br>
 
-</div>
-<div style=" height:400px; width:300px; float:right;">
-<center>
-<h1><span style="color:#5C5C5C;">Circuit</span><span style="color:#139442"> Digest</span></h1>
-<h2>Surveillance Robot</h2><br><br>
-<a href="#" id="up" style="font-size:30px;text-decoration:none;">  &#x1F881;&#x1F881;<br>Forward</a><br><br></center>
-<a href="#" id="left" style="font-size:30px;text-decoration:none;"> &#x1F880;&#x1F880;Left</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<a href="#" id="right" style="font-size:30px; text-decoration:none;"> Right &#x1F882;&#x1F882;</a><br><br>
-<center><a href="#" id="down" style="font-size:30px;text-decoration:none;"> Backward<br> &#x1F883;&#x1F883;</a></center>
-</div>
+    <div class="vid"> <video controls width="600" height="300" ; style="margin-left: 1%">
+            <source src="https://www.youtube.com � watch" type="video/mp4">
+            <source src="vid.webm" � watch" type="video/webm">
+        </video></div>
+
+
+    <div class="container">
+        <div class="floatRight">
+            <tr>
+                <table>
+                    <th>Motor Controller</th>
+                    <tr>
+                        <td></td>
+                        <td>
+
+                            <div style="padding: 8px ;">
+                                <h4 id="up">Front value</h4>
+                                <button type="button" style="font-size:12px"> <i class="fa fa-toggle-up"
+                                        style="font-size:25px;color:red"></i></button>
+                            </div>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div style="padding: 8px ;">
+                                <h4 id="left">Left value</h4>
+                                <button type="button" style="font-size:12px"> <i class="fa fa-toggle-left"
+                                        style="font-size:25px;color:red"></i></button>
+                            </div>
+                        </td>
+                        <td></td>
+                        <td>
+                            <div style="padding: 8px ;">
+                                <h4 id="right">Right value</h4>
+                                <button type="button" style="font-size:12px"><i class="fa fa-caret-square-o-right"
+                                        style="font-size:25px;color:red"></i></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <div style="padding: 8px ;">
+                                <h4 id="down">Back value</h4>
+                                <button type="button" style="font-size:12px"><i class="fa fa-caret-square-o-down"
+                                        style="font-size:25px;color:red"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+        </div>
+
+
+        <div class="FloatLeft">
+            <tr>
+                <table bgcolor="#AD657">
+                    <th>Sensor Reading </th>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <div style="padding: 16px ;">
+                                <input type="text" name="gas" id="g1" value="gas"
+                                    style="margin-right:10%;margin-top:30%">
+                        </td>
+        </div>
+        <td></td>
+
+        <td>
+            <div style="padding: 16px ;">
+                <input type="text" name="PIR" id="p1" value="pir" style="margin-left:-51%;margin-top:30%">
+        </td>
+    </div>
+    </tr>
+
+    <tr>
+        <td></td>
+        <td></td>
+        <td>
+            <div style="padding: 16px ;">
+                <input type="text" name="humidity" value="hum" id="h1" style="margin-left:-105%;margin-top:30%">
+        </td>
+        </div>
+        <td></td>
+        <td>
+            <div style="padding: 16px ;">
+                <input type="text" name="heat" id="t1" value="heat" style="margin-left:-150%;margin-top:30%">
+        </td>
+        </div>
+    </tr>
+    </table>
+    </div>
+</body>
 
 <script>
-$( document ).ready(function(){
-    $("#down").on("mousedown", function() {
-     $.get('/down_side');
-     }).on('mouseup', function() {
-     $.get('/stop');
+    $(document).ready(function () {
+        $("#down").on("mousedown", function () {
+            $.get('/down_side');
+        }).on('mouseup', function () {
+            $.get('/stop');
+        });
+        $("#up").on("mousedown", function () {
+            $.get('/up_side');
+        }).on('mouseup', function () {
+            $.get('/stop');
+        });
+        $("#left").on("mousedown", function () {
+            $.get('/left_side');
+        }).on('mouseup', function () {
+            $.get('/stop');
+        });
+        $("#right").on("mousedown", function () {
+            $.get('/right_side');
+        }).on('mouseup', function () {
+            $.get('/stop');
+        });
     });
-    $("#up").on("mousedown", function() {
-     $.get('/up_side');
-     }).on('mouseup', function() {
-     $.get('/stop');
-    });
-    $("#left").on("mousedown", function() {
-     $.get('/left_side');
-     }).on('mouseup', function() {
-     $.get('/stop');
-    });
-    $("#right").on("mousedown", function() {
-     $.get('/right_side');
-     }).on('mouseup', function() {
-     $.get('/stop');
-    });
-});
 </script>
 
 </body>
+
 </html>
