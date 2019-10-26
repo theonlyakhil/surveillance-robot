@@ -5,7 +5,7 @@ from flask import render_template, request
 import RPi.GPIO as GPIO
 import time
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='template')
 
 m11=18
 m12=23
@@ -22,7 +22,7 @@ GPIO.output(m11 , 0)
 GPIO.output(m12 , 0)
 GPIO.output(m21, 0)
 GPIO.output(m22, 0)
-print "DOne"
+print("done")
 
 a=1
 @app.route("/")
@@ -75,6 +75,6 @@ def stop():
    return  'true'
 
 if __name__ == "__main__":
- print "Start"
- app.run(host='0.0.0.0',port=5010)
+ print("start")
+ app.run(host='0.0.0.0',port=6021)
 
