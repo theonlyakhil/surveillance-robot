@@ -7,13 +7,13 @@ import time
 
 app = Flask(__name__, template_folder='template')
 
-m11=18
-m12=23
-m21=24
-m22=25
+m11=35
+m12=36
+m21=37
+m22=38
 
 GPIO.setwarnings(False)
-GPIO.setmode(GPIO.BCM)
+GPIO.setmode(GPIO.BOARD)
 GPIO.setup(m11, GPIO.OUT)
 GPIO.setup(m12, GPIO.OUT)
 GPIO.setup(m21, GPIO.OUT)
@@ -32,18 +32,18 @@ def index():
 @app.route('/left_side')
 def left_side():
     data1="LEFT"
-    GPIO.output(m11 , 0)
+    GPIO.output(m11 , 1)
     GPIO.output(m12 , 0)
-    GPIO.output(m21 , 1)
+    GPIO.output(m21 , 0)
     GPIO.output(m22 , 0)
     return 'true'
 
 @app.route('/right_side')
 def right_side():
    data1="RIGHT"
-   GPIO.output(m11 , 1)
+   GPIO.output(m11 , 0)
    GPIO.output(m12 , 0)
-   GPIO.output(m21 , 0)
+   GPIO.output(m21 , 1)
    GPIO.output(m22 , 0)
    return 'true'
 
