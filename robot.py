@@ -4,13 +4,15 @@ from flask import Flask
 from flask import render_template, request
 import RPi.GPIO as GPIO
 import time
+import Adafruit_DHT
 
 app = Flask(__name__, template_folder='template')
-
-m11=35
-m12=36
-m21=37
-m22=38
+sensor = Adafruit_DHT.DHT11
+DHTpin = 4
+m11 = 35
+m12 = 36
+m21 = 37
+m22 = 38
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD)
@@ -18,63 +20,73 @@ GPIO.setup(m11, GPIO.OUT)
 GPIO.setup(m12, GPIO.OUT)
 GPIO.setup(m21, GPIO.OUT)
 GPIO.setup(m22, GPIO.OUT)
-GPIO.output(m11 , 0)
-GPIO.output(m12 , 0)
+GPIO.output(m11, 0)
+GPIO.output(m12, 0)
 GPIO.output(m21, 0)
 GPIO.output(m22, 0)
 print("done")
 
-a=1
+a = 1
 @app.route("/")
 def index():
-    return render_template('robot.html')
+    humidity, temperature = Adafruit_DHT.read_retry(sensor, DHTpin)
+    templateData = {
+        'temperature': temperature,
+        'humidity': humidity
+    }
+    return render_template('robot.html', **templateData)
+
 
 @app.route('/left_side')
 def left_side():
-    data1="LEFT"
-    GPIO.output(m11 , 1)
-    GPIO.output(m12 , 0)
-    GPIO.output(m21 , 0)
-    GPIO.output(m22 , 0)
+    data1 = "LEFT"
+    GPIO.output(m11, 1)
+    GPIO.output(m12, 0)
+    GPIO.output(m21, 0)
+    GPIO.output(m22, 0)
     return 'true'
+
 
 @app.route('/right_side')
 def right_side():
-   data1="RIGHT"
-   GPIO.output(m11 , 0)
-   GPIO.output(m12 , 0)
-   GPIO.output(m21 , 1)
-   GPIO.output(m22 , 0)
-   return 'true'
+    data1 = "RIGHT"
+    GPIO.output(m11, 0)
+    GPIO.output(m12, 0)
+    GPIO.output(m21, 1)
+    GPIO.output(m22, 0)
+    return 'true'
+
 
 @app.route('/up_side')
 def up_side():
-   data1="FORWARD"
-   GPIO.output(m11 , 1)
-   GPIO.output(m12 , 0)
-   GPIO.output(m21 , 1)
-   GPIO.output(m22 , 0)
-   return 'true'
+    data1 = "FORWARD"
+    GPIO.output(m11, 1)
+    GPIO.output(m12, 0)
+    GPIO.output(m21, 1)
+    GPIO.output(m22, 0)
+    return 'true'
+
 
 @app.route('/down_side')
 def down_side():
-   data1="BACK"
-   GPIO.output(m11 , 0)
-   GPIO.output(m12 , 1)
-   GPIO.output(m21 , 0)
-   GPIO.output(m22 , 1)
-   return 'true'
+    data1 = "BACK"
+    GPIO.output(m11, 0)
+    GPIO.output(m12, 1)
+    GPIO.output(m21, 0)
+    GPIO.output(m22, 1)
+    return 'true'
+
 
 @app.route('/stop')
 def stop():
-   data1="STOP"
-   GPIO.output(m11 , 0)
-   GPIO.output(m12 , 0)
-   GPIO.output(m21 , 0)
-   GPIO.output(m22 , 0)
-   return  'true'
+    data1 = "STOP"
+    GPIO.output(m11, 0)
+    GPIO.output(m12, 0)
+    GPIO.output(m21, 0)
+    GPIO.output(m22, 0)
+    return 'true'
+
 
 if __name__ == "__main__":
- print("start")
- app.run(host='0.0.0.0',port=6021)
-
+    print("start")
+    app.run(host='0.0.0.0', port=6021)
