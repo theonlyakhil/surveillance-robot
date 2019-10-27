@@ -34,6 +34,7 @@ a = 1
 def index():
     humidity, temperature = Adafruit_DHT.read_retry(sensor, DHTpin)
     pirValue = GPIO.input(pirPin)
+    sendValue = ""
     if pirValue == 1:
         sendValue = "Movement detected"
     else:
