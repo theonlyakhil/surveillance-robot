@@ -8,11 +8,11 @@ import Adafruit_DHT
 
 app = Flask(__name__, template_folder='template')
 sensor = Adafruit_DHT.DHT11
-DHTpin = 4
-m11 = 35
-m12 = 36
-m21 = 37
-m22 = 38
+DHTpin = 18  # use gpio number not board number for DHT
+m11 = 35  # front left
+m12 = 36  # front right
+m21 = 37  # back left
+m22 = 38  # back right
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD)
