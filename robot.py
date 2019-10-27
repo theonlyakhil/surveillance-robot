@@ -32,20 +32,19 @@ print("done")
 a = 1
 @app.route("/")
 def index():
-    while True:
-        humidity, temperature = Adafruit_DHT.read_retry(sensor, DHTpin)
-        pirValue = GPIO.input(pirPin)
-        pir_value = ""
-        if pirValue == 1:
-            pir_value = "Movement detected"
-        else:
-            pir_value = "No movement"
-        templateData = {
-            'temperature': temperature,
-            'humidity': humidity,
-            'pir_value': pir_value
-        }
-        return render_template('robot.html', **templateData)
+    humidity, temperature = Adafruit_DHT.read_retry(sensor, DHTpin)
+    pirValue = GPIO.input(pirPin)
+    pir_value = ""
+    if pirValue == 1:
+        pir_value = "Movement detected"
+    else:
+        pir_value = "No movement"
+    templateData = {
+        'temperature': temperature,
+        'humidity': humidity,
+        'pir_value': pir_value
+    }
+    return render_template('robot.html', **templateData)
 
 
 @app.route('/left_side')
