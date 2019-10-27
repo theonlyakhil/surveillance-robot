@@ -34,15 +34,15 @@ a = 1
 def index():
     humidity, temperature = Adafruit_DHT.read_retry(sensor, DHTpin)
     pirValue = GPIO.input(pirPin)
-    sendValue = ""
+    pir_value = ""
     if pirValue == 1:
-        sendValue = "Movement detected"
+        pir_value = "Movement detected"
     else:
-        sendValue = "No movement"
+        pir_value = "No movement"
     templateData = {
         'temperature': temperature,
         'humidity': humidity,
-        'pir-value': sendValue
+        'pir_value': pir_value
     }
     return render_template('robot.html', **templateData)
 
