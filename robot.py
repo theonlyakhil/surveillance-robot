@@ -9,6 +9,8 @@ import Adafruit_DHT
 app = Flask(__name__, template_folder='template')
 sensor = Adafruit_DHT.DHT11
 DHTpin = 18  # use gpio number not board number for DHT
+pirPin = 16
+# Wheel controls
 m11 = 35  # front left
 m12 = 36  # front right
 m21 = 37  # back left
@@ -16,6 +18,7 @@ m22 = 38  # back right
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD)
+GPIO.setup(pirPin, GPIO.IN)
 GPIO.setup(m11, GPIO.OUT)
 GPIO.setup(m12, GPIO.OUT)
 GPIO.setup(m21, GPIO.OUT)
@@ -30,9 +33,15 @@ a = 1
 @app.route("/")
 def index():
     humidity, temperature = Adafruit_DHT.read_retry(sensor, DHTpin)
+    pirValue = GPIO.input(pirPin)
+    if pirValue == 1:
+        sendValue = "Movement detected"
+    else:
+        sendValue = "No movement"
     templateData = {
         'temperature': temperature,
-        'humidity': humidity
+        'humidity': humidity,
+        'pir-value': sendValue
     }
     return render_template('robot.html', **templateData)
 
