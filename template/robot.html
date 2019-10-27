@@ -35,7 +35,7 @@
         $(document).ready(function () {
             $("#pirr_value"), function () {
             document.getElementById("pirr_value").innerHTML = "{{pir_value}}";
-            });
+            };
             $("#down").on("mousedown", function () {
                 $.get('/down_side');
             }).on('mouseup', function () {
