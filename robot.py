@@ -117,4 +117,4 @@ def cam_right():
 
 if __name__ == "__main__":
     print("start")
-    app.run(host='0.0.0.0', port=80)
+    app.run(host='0.0.0.0', port=1111)
