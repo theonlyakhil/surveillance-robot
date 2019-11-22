@@ -106,16 +106,15 @@ def stop():
 @app.route('/cam_left')
 def cam_left():
     data1 = "Camera Left"
-    n += 0.5
-    p.ChangeDutyCycle(n)
+    p.ChangeDutyCycle(8)
     return 'true'
 
 
-n = 7.5
+
 @app.route('/cam_right')
 def cam_right():
     data1 = "Camera Right"
-    p.ChangeDutyCycle(n+1)
+    p.ChangeDutyCycle(4)
     return 'true'
 
 
