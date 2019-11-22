@@ -2,6 +2,8 @@ import sys
 import RPi.GPIO as GPIO
 
 servoPin = 8
+GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BOARD)
 p = GPIO.PWM(servoPin, 50)
 
 
