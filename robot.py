@@ -38,7 +38,7 @@ a = 1
 @app.route("/")
 def index():
     humidity, temperature = Adafruit_DHT.read_retry(sensor, DHTpin)
-    p.start(2.5)
+    p.start(5)
     pirValue = GPIO.input(pirPin)
     pir_value = ""
     if pirValue == 1:
@@ -103,16 +103,16 @@ def stop():
     return 'true'
 
 
-# @app.route('/cam_left')
-# def cam_left():
-#     data1 = "Camera Left"
-#     return 'true'
+@app.route('/cam_left')
+def cam_left():
+    data1 = "Camera Left"
+    return 'true'
 
 
-# @app.route('/cam_right')
-# def cam_right():
-#     data1 = "Camera Right"
-#     return 'true'
+@app.route('/cam_right')
+def cam_right():
+    data1 = "Camera Right"
+    return 'true'
 
 
 if __name__ == "__main__":

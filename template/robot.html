@@ -63,6 +63,16 @@
             }).on('mouseup', function () {
                 $.get('/stop');
             });
+            $("#cam_left").on("mousedown", function () {
+                $.get('/cam_left');
+            }).on('mouseup', function () {
+                $.get('/stop');
+            });
+            $("#cam_right").on("mousedown", function () {
+                $.get('/cam_right');
+            }).on('mouseup', function () {
+                $.get('/stop');
+            });
         });
     </script>
 
