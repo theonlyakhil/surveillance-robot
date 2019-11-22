@@ -103,16 +103,16 @@ def stop():
     return 'true'
 
 
-@app.route('/cam_left')
-def cam_left():
-    data1 = "Camera Left"
-    return 'true'
+# @app.route('/cam_left')
+# def cam_left():
+#     data1 = "Camera Left"
+#     return 'true'
 
 
-@app.route('/cam_right')
-def cam_right():
-    data1 = "Camera Right"
-    return 'true'
+# @app.route('/cam_right')
+# def cam_right():
+#     data1 = "Camera Right"
+#     return 'true'
 
 
 if __name__ == "__main__":
