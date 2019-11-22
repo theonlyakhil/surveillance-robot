@@ -119,6 +119,12 @@ def cam_right():
     return 'true'
 
 
+@app.route('/cam_stop')
+def cam_stop():
+    data1 = "Camera stop"
+    return 'true'
+
+
 if __name__ == "__main__":
     print("start")
     app.run(host='0.0.0.0', port=3000)
