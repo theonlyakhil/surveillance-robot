@@ -10,7 +10,6 @@ app = Flask(__name__, template_folder='template')
 sensor = Adafruit_DHT.DHT11
 DHTpin = 18  # use gpio number not board number for DHT
 pirPin = 16
-servoPin = 8
 
 # Wheel controls
 m11 = 35  # front left
@@ -30,7 +29,6 @@ GPIO.output(m11, 0)
 GPIO.output(m12, 0)
 GPIO.output(m21, 0)
 GPIO.output(m22, 0)
-p = GPIO.PWM(servoPin, 50)
 
 print("done")
 
@@ -38,7 +36,6 @@ a = 1
 @app.route("/")
 def index():
     humidity, temperature = Adafruit_DHT.read_retry(sensor, DHTpin)
-    p.start(7.5)
     pirValue = GPIO.input(pirPin)
     pir_value = ""
     if pirValue == 1:
@@ -106,15 +103,13 @@ def stop():
 @app.route('/cam_left')
 def cam_left():
     data1 = "Camera Left"
-    p.ChangeDutyCycle(8)
     return 'true'
 
 
-
+n = 7.5
 @app.route('/cam_right')
 def cam_right():
     data1 = "Camera Right"
-    p.ChangeDutyCycle(4)
     return 'true'
 
 
