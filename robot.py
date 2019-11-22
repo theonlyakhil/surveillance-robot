@@ -38,7 +38,7 @@ a = 1
 @app.route("/")
 def index():
     humidity, temperature = Adafruit_DHT.read_retry(sensor, DHTpin)
-    p.start(7)
+    p.start(7.5)
     pirValue = GPIO.input(pirPin)
     pir_value = ""
     if pirValue == 1:
