@@ -31,7 +31,6 @@ GPIO.output(m12, 0)
 GPIO.output(m21, 0)
 GPIO.output(m22, 0)
 p = GPIO.PWM(servoPin, 50)
-global n = 7.5
 
 print("done")
 
@@ -39,7 +38,7 @@ a = 1
 @app.route("/")
 def index():
     humidity, temperature = Adafruit_DHT.read_retry(sensor, DHTpin)
-    p.start(n)
+    p.start(7.5)
     pirValue = GPIO.input(pirPin)
     pir_value = ""
     if pirValue == 1:
@@ -115,8 +114,7 @@ def cam_left():
 @app.route('/cam_right')
 def cam_right():
     data1 = "Camera Right"
-    n -= 0.5
-    p.ChangeDutyCycle(n)
+    p.ChangeDutyCycle(1)
     return 'true'
 
 
