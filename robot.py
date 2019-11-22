@@ -31,7 +31,7 @@ GPIO.output(m12, 0)
 GPIO.output(m21, 0)
 GPIO.output(m22, 0)
 p = GPIO.PWM(servoPin, 50)
-n = 7.5
+global n = 7.5
 
 print("done")
 
@@ -107,14 +107,16 @@ def stop():
 @app.route('/cam_left')
 def cam_left():
     data1 = "Camera Left"
-    p.ChangeDutyCycle(n+0.5)
+    n += 0.5
+    p.ChangeDutyCycle(n)
     return 'true'
 
 
 @app.route('/cam_right')
 def cam_right():
     data1 = "Camera Right"
-    p.ChangeDutyCycle(n-0.5)
+    n -= 0.5
+    p.ChangeDutyCycle(n)
     return 'true'
 
 
