@@ -42,20 +42,14 @@ GPIO.output(m11, 0)
 GPIO.output(m12, 0)
 GPIO.output(m21, 0)
 GPIO.output(m22, 0)
-GPIO.setup(topTrig, GPIO.OUT)
-GPIO.setup(topEcho, GPIO.IN)
-GPIO.setup(leftTrig, GPIO.OUT)
-GPIO.setup(leftEcho, GPIO.IN)
-GPIO.setup(downTrig, GPIO.OUT)
-GPIO.setup(downEcho, GPIO.IN)
-GPIO.setup(rightTrig, GPIO.OUT)
-GPIO.setup(rightEcho, GPIO.IN)
 
 
 def distance(pinTrig, pinEcho):
     try:
+        GPIO.setup(pinTrig, GPIO.OUT)
+        GPIO.setup(pinEcho, GPIO.IN)
         GPIO.output(pinTrig, False)
-        while GPIO.input(pinEcho1) == 0:
+        while GPIO.input(pinEcho) == 0:
             nosig = time.time()
 
         while GPIO.input(pinEcho) == 1:
