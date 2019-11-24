@@ -35,6 +35,21 @@
             <h2>Humidity: {{humidity}}%</h2>
             <h2>Movement: {{pir_value}}</h2>
         </center>
+        <br><br>
+        <center>
+            <h2>Ultrasonic Sensor</h2><br><br>
+            <a href="#" id="up" style="font-size:30px;text-decoration:none;"> {{forwardUS}}<br>Forward</a><br><br>
+        </center>
+        <center>
+            <a href="#" id="left" style="font-size:30px;text-decoration:none;">
+                {{leftUS}}<br>Left</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </center>
+        <center>
+            <a href="#" id="right" style="font-size:30px; text-decoration:none;"> {{rightUS}}<br>Right</a><br><br>
+        </center>
+        <center>
+            <a href="#" id="down" style="font-size:30px;text-decoration:none;"> Backward<br> {{backwardUS}}</a>
+        </center>
     </div>
 
     <script>
