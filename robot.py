@@ -1,14 +1,20 @@
 
 
 from flask import Flask
-from flask import render_template, request
+from flask import render_template, request, Response
 import RPi.GPIO as GPIO
 import time
 import Adafruit_DHT
 import os
-from picamera
+import picamera
+import cv2
+import socket
+import io
+
+
 
 app = Flask(__name__, template_folder='template')
+vc = cv2.VideoCapture(0)
 
 sensor = Adafruit_DHT.DHT11
 
@@ -79,10 +85,10 @@ def index():
     else:
         pir_value = "No movement"
 
-    ultFront = distance(topTrig, topEcho)
-    ultLeft = distance(leftTrig, leftEcho)
-    ultDown = distance(downTrig, downEcho)
-    ultRight = distance(rightTrig, rightEcho)
+    ultFront = 1 #distance(topTrig, topEcho)
+    ultLeft = 1 #distance(leftTrig, leftEcho)
+    ultDown = 1 #distance(downTrig, downEcho)
+    ultRight = 1 #distance(rightTrig, rightEcho)
 
     templateData = {
         'temperature': temperature,
@@ -166,26 +172,18 @@ def cam_stop():
     data1 = "Camera stop"
     return 'true'
 
-
-def gen():
-    """Video streaming generator function."""
-    while True:
-        rval, frame = vc.read()
-        cv2.imwrite('pic.jpg', frame)
-        yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + open('pic.jpg', 'rb').read() + b'\r\n')
-
-
-@app.route('/video_feed')
-def video_feed():
-    """Video streaming route. Put this in the src attribute of an img tag."""
-    return Response(gen(),
-                    mimetype='multipart/x-mixed-replace; boundary=frame')
-
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True)
-
+def gen(): 
+   """Video streaming generator function.""" 
+   while True: 
+       rval, frame = vc.read() 
+       cv2.imwrite('pic.jpg', frame) 
+       yield (b'--frame\r\n' 
+              b'Content-Type: image/jpeg\r\n\r\n' + open('pic.jpg', 'rb').read() + b'\r\n') 
+@app.route('/video_feed') 
+def video_feed(): 
+   """Video streaming route. Put this in the src attribute of an img tag.""" 
+   return Response(gen(), 
+                   mimetype='multipart/x-mixed-replace; boundary=frame') 
 
 if __name__ == "__main__":
     print("start")
