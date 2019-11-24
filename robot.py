@@ -167,16 +167,19 @@ def cam_stop():
     return 'true'
 
 
-def gen(camera):
+def gen():
+    """Video streaming generator function."""
     while True:
-        frame = camera.get_frame()
+        rval, frame = vc.read()
+        cv2.imwrite('pic.jpg', frame)
         yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+               b'Content-Type: image/jpeg\r\n\r\n' + open('pic.jpg', 'rb').read() + b'\r\n')
 
 
 @app.route('/video_feed')
 def video_feed():
-    return Response(gen(Camera()),
+    """Video streaming route. Put this in the src attribute of an img tag."""
+    return Response(gen(),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
