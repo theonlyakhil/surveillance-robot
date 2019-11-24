@@ -8,8 +8,11 @@ import Adafruit_DHT
 import os
 
 app = Flask(__name__, template_folder='template')
+
 sensor = Adafruit_DHT.DHT11
+
 DHTpin = 18  # use gpio number not board number for DHT
+
 pirPin = 16
 
 # Wheel controls
@@ -17,6 +20,16 @@ m11 = 35  # front left
 m12 = 36  # front right
 m21 = 37  # back left
 m22 = 38  # back right
+
+# UltrasonicSensor
+topTrig = 22
+topEcho = 21
+leftTrig = 24
+leftEcho = 23
+downTrig = 28
+downEcho = 27
+rightTrig = 32
+rightEcho = 31
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD)
@@ -30,7 +43,25 @@ GPIO.output(m12, 0)
 GPIO.output(m21, 0)
 GPIO.output(m22, 0)
 
-print("done")
+
+def distance(pinTrig, pinEcho):
+    try:
+        GPIO.output(pinTrig, False)
+        while GPIO.input(pinEcho1) == 0:
+            nosig = time.time()
+
+        while GPIO.input(pinEcho) == 1:
+            sig = time.time()
+
+        tl = sig - nosig
+        distance = tl / 0.000058
+        GPIO.cleanup()
+        return distance
+    except:
+        distance = 100
+        GPIO.cleanup()
+        return distance
+
 
 a = 1
 @app.route("/")
@@ -38,14 +69,25 @@ def index():
     humidity, temperature = Adafruit_DHT.read_retry(sensor, DHTpin)
     pirValue = GPIO.input(pirPin)
     pir_value = ""
+
     if pirValue == 1:
         pir_value = "Movement detected"
     else:
         pir_value = "No movement"
+
+    ultFront = distance(topTrig, topEcho)
+    ultLeft = distance(leftTrig, leftEcho)
+    ultDown = distance(downTrig, downEcho)
+    ultRight = distance(rightTrig, rightEcho)
+
     templateData = {
         'temperature': temperature,
         'humidity': humidity,
-        'pir_value': pir_value
+        'pir_value': pir_value,
+        'ultrasonic_front': ultFront,
+        'ultrasonic_left': ultLeft,
+        'ultrasonic_down': ultDown,
+        'ultrasonic_right': ultRight
     }
     return render_template('robot.html', **templateData)
 
