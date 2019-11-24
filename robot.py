@@ -44,6 +44,14 @@ GPIO.setup(m11, GPIO.OUT)
 GPIO.setup(m12, GPIO.OUT)
 GPIO.setup(m21, GPIO.OUT)
 GPIO.setup(m22, GPIO.OUT)
+GPIO.setup(topTrig, GPIO.OUT)
+GPIO.setup(topEcho, GPIO.IN)
+GPIO.setup(leftTrig, GPIO.OUT)
+GPIO.setup(leftEcho, GPIO.IN)
+GPIO.setup(downTrig, GPIO.OUT)
+GPIO.setup(downEcho, GPIO.IN)
+GPIO.setup(rightTrig, GPIO.OUT)
+GPIO.setup(rightEcho, GPIO.IN)
 GPIO.output(m11, 0)
 GPIO.output(m12, 0)
 GPIO.output(m21, 0)
@@ -52,8 +60,6 @@ GPIO.output(m22, 0)
 
 def distance(pinTrig, pinEcho):
     try:
-        GPIO.setup(pinTrig, GPIO.OUT)
-        GPIO.setup(pinEcho, GPIO.IN)
         GPIO.output(pinTrig, False)
         while GPIO.input(pinEcho) == 0:
             nosig = time.time()
@@ -74,31 +80,32 @@ def distance(pinTrig, pinEcho):
 a = 1
 @app.route("/")
 def index():
-    GPIO.setmode(GPIO.BOARD)
-    humidity, temperature = Adafruit_DHT.read_retry(sensor, DHTpin)
-    pirValue = GPIO.input(pirPin)
-    pir_value = ""
+    # GPIO.setmode(GPIO.BOARD)
+    while True:
+        humidity, temperature = Adafruit_DHT.read_retry(sensor, DHTpin)
+        pirValue = GPIO.input(pirPin)
+        pir_value = ""
 
-    if pirValue == 1:
-        pir_value = "Movement detected"
-    else:
-        pir_value = "No movement"
+        if pirValue == 1:
+            pir_value = "Movement detected"
+        else:
+            pir_value = "No movement"
 
-    ultFront = 1  # distance(topTrig, topEcho)
-    ultLeft = 1  # distance(leftTrig, leftEcho)
-    ultDown = 1  # distance(downTrig, downEcho)
-    ultRight = 1  # distance(rightTrig, rightEcho)
+        ultFront = 1  # distance(topTrig, topEcho)
+        ultLeft = 1  # distance(leftTrig, leftEcho)
+        ultDown = 1  # distance(downTrig, downEcho)
+        ultRight = 1  # distance(rightTrig, rightEcho)
 
-    templateData = {
-        'temperature': temperature,
-        'humidity': humidity,
-        'pir_value': pir_value,
-        'ultrasonic_front': ultFront,
-        'ultrasonic_left': ultLeft,
-        'ultrasonic_down': ultDown,
-        'ultrasonic_right': ultRight
-    }
-    return render_template('robot.html', **templateData)
+        templateData = {
+            'temperature': temperature,
+            'humidity': humidity,
+            'pir_value': pir_value,
+            'ultrasonic_front': ultFront,
+            'ultrasonic_left': ultLeft,
+            'ultrasonic_down': ultDown,
+            'ultrasonic_right': ultRight
+        }
+        return render_template('robot.html', **templateData)
 
 
 @app.route('/left_side')
