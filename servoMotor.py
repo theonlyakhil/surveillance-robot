@@ -13,16 +13,20 @@ def main():
     y = file.read()
     n = int(y)
     file.close()
-    print(n)
     p.start(n)
     direction = sys.argv[1]
     if direction == "left":
-        n += 2
-        p.ChangeDutyCycle(n)
-        print(n)
+        if n < 15:
+            n += 2
+            p.ChangeDutyCycle(n)
+        else:
+            exit
     elif direction == "right":
-        n -= 2
-        p.ChangeDutyCycle(n)
+        if n < 0:
+            n -= 2
+            p.ChangeDutyCycle(n)
+        else:
+            exit
     file = open("servoStatus.txt", "w")
     file.write(str(n))
     file.close()
