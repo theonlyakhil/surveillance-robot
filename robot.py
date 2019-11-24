@@ -5,6 +5,7 @@ from flask import render_template, request
 import RPi.GPIO as GPIO
 import time
 import Adafruit_DHT
+import os
 
 app = Flask(__name__, template_folder='template')
 sensor = Adafruit_DHT.DHT11
@@ -102,6 +103,7 @@ def stop():
 @app.route('/cam_left')
 def cam_left():
     data1 = "Camera Left"
+    os.system("python3 servoMotor.py left")
     return 'true'
 
 
@@ -109,6 +111,7 @@ n = 7.5
 @app.route('/cam_right')
 def cam_right():
     data1 = "Camera Right"
+    os.system("python3 servoMotor.py right")
     return 'true'
 
 
