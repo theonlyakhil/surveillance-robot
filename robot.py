@@ -91,7 +91,7 @@ def index():
         else:
             pir_value = "No movement"
 
-        ultFront = 1  # distance(topTrig, topEcho)
+        ultFront = distance(topTrig, topEcho)
         ultLeft = 1  # distance(leftTrig, leftEcho)
         ultDown = 1  # distance(downTrig, downEcho)
         ultRight = 1  # distance(rightTrig, rightEcho)
