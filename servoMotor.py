@@ -19,12 +19,14 @@ def main():
         if n < 15:
             n += 2
             p.ChangeDutyCycle(n)
+            print(n)
         else:
             exit
     elif direction == "right":
         if n < 0:
             n -= 2
             p.ChangeDutyCycle(n)
+            print(n)
         else:
             exit
     file = open("servoStatus.txt", "w")
