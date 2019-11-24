@@ -6,7 +6,7 @@ import RPi.GPIO as GPIO
 import time
 import Adafruit_DHT
 import os
-from picamera import Camera
+from picamera
 
 app = Flask(__name__, template_folder='template')
 
