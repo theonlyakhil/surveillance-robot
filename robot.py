@@ -19,26 +19,26 @@ sensor = Adafruit_DHT.DHT11
 
 DHTpin = 18  # use gpio number not board number for DHT
 
-pirPin = 16
+pirPin = 23  # 16
 
 # Wheel controls
-m11 = 35  # front left
-m12 = 36  # front right
-m21 = 37  # back left
-m22 = 38  # back right
+m11 = 19  # 35  # front left
+m12 = 16  # 36  # front right
+m21 = 26  # 37  # back left
+m22 = 20  # 38  # back right
 
 # UltrasonicSensor
-topTrig = 22
-topEcho = 21
-leftTrig = 24
-leftEcho = 23
-downTrig = 28
-downEcho = 27
-rightTrig = 32
-rightEcho = 31
+topTrig = 25  # 22
+topEcho = 9  # 21
+leftTrig = 8  # 24
+leftEcho = 11  # 23
+# downTrig = 28
+# downEcho = 27
+rightTrig = 12  # 32
+rightEcho = 6  # 31
 
 GPIO.setwarnings(False)
-GPIO.setmode(GPIO.BOARD)
+GPIO.setmode(GPIO.BCM)
 GPIO.setup(pirPin, GPIO.IN)
 GPIO.setup(m11, GPIO.OUT)
 GPIO.setup(m12, GPIO.OUT)
@@ -48,8 +48,8 @@ GPIO.setup(topTrig, GPIO.OUT)
 GPIO.setup(topEcho, GPIO.IN)
 GPIO.setup(leftTrig, GPIO.OUT)
 GPIO.setup(leftEcho, GPIO.IN)
-GPIO.setup(downTrig, GPIO.OUT)
-GPIO.setup(downEcho, GPIO.IN)
+# GPIO.setup(downTrig, GPIO.OUT)
+# GPIO.setup(downEcho, GPIO.IN)
 GPIO.setup(rightTrig, GPIO.OUT)
 GPIO.setup(rightEcho, GPIO.IN)
 GPIO.output(m11, 0)
