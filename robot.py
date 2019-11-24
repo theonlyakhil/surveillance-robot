@@ -6,6 +6,7 @@ import RPi.GPIO as GPIO
 import time
 import Adafruit_DHT
 import os
+from camera import Camera
 
 app = Flask(__name__, template_folder='template')
 
@@ -164,6 +165,23 @@ def cam_right():
 def cam_stop():
     data1 = "Camera stop"
     return 'true'
+
+
+def gen(camera):
+    while True:
+        frame = camera.get_frame()
+        yield (b'--frame\r\n'
+               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+
+
+@app.route('/video_feed')
+def video_feed():
+    return Response(gen(Camera()),
+                    mimetype='multipart/x-mixed-replace; boundary=frame')
+
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', debug=True)
 
 
 if __name__ == "__main__":
