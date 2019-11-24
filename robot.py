@@ -68,6 +68,7 @@ def distance(pinTrig, pinEcho):
 a = 1
 @app.route("/")
 def index():
+    GPIO.setmode(GPIO.BOARD)
     humidity, temperature = Adafruit_DHT.read_retry(sensor, DHTpin)
     pirValue = GPIO.input(pirPin)
     pir_value = ""
