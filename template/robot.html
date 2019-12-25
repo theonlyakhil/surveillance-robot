@@ -21,21 +21,46 @@
         <a href="#" id="right" style="font-size:30px; text-decoration:none;"> Right &#x1F882;&#x1F882;</a><br><br>
         <center><a href="#" id="down" style="font-size:30px;text-decoration:none;"> Backward<br> &#x1F883;&#x1F883;</a>
         </center>
+        <center>
+            <h2>Camera controls</h2><br><br>
+        </center>
+        <a href="#" id="cam_left" style="font-size:30px;text-decoration:none;">
+            &#x1F880;&#x1F880;Left</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="#" id="cam_right" style="font-size:30px; text-decoration:none;"> Right &#x1F882;&#x1F882;</a><br><br>
     </div>
+    <img src="{{ url_for('video_feed') }}">
     <div style=" height:400px; width:300px; float:left;">
         <center>
             <h1><span style="color:#5C5C5C;">Sensor</span><span style="color:#139442"> Values</span></h1>
-            <h2>Temperature: {{temperature}}</h2>
-            <h2>Humidity: {{humidity}}</h2>
-            <h2>Movement: <span id = "pirr_value"></span></h2>
+            <h2>Temperature: {{temperature}} &#176;C</h2>
+            <h2>Humidity: {{humidity}}%</h2>
+            <h2>Movement: {{pir_value}}</h2>
+        </center>
+        <br><br>
+        <center>
+            <h2>Ultrasonic Sensor</h2><br><br>
+            <a href="#" id="up" style="font-size:30px;text-decoration:none;">
+                {{ultrasonic_front}}<br>Forward</a><br><br>
+        </center>
+        <center>
+            <a href="#" id="left" style="font-size:30px;text-decoration:none;">
+                {{ultrasonic_left}}<br>Left</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </center>
+        <center>
+            <a href="#" id="right" style="font-size:30px; text-decoration:none;">
+                {{ultrasonic_right}}<br>Right</a><br><br>
+        </center>
+        <center>
+            <a href="#" id="down" style="font-size:30px;text-decoration:none;"> Backward<br> {{ultrasonic_down}}</a>
         </center>
     </div>
 
     <script>
         $(document).ready(function () {
-            $("#pirr_value"), function () {
-            document.getElementById("pirr_value").innerHTML = "{{pir_value}}";
-            };
+            $("#pirr_value"),
+                function () {
+                    document.getElementById("pirr_value").innerHTML = "{{pir_value}}";
+                };
             $("#down").on("mousedown", function () {
                 $.get('/down_side');
             }).on('mouseup', function () {
@@ -53,6 +78,16 @@
             });
             $("#right").on("mousedown", function () {
                 $.get('/right_side');
+            }).on('mouseup', function () {
+                $.get('/stop');
+            });
+            $("#cam_left").on("mousedown", function () {
+                $.get('/cam_left');
+            }).on('mouseup', function () {
+                $.get('/stop');
+            });
+            $("#cam_right").on("mousedown", function () {
+                $.get('/cam_right');
             }).on('mouseup', function () {
                 $.get('/stop');
             });
